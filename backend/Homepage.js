@@ -12,7 +12,7 @@ let db;
 let categories, inquiries, reviews, team, venues;
 
 // Middleware to parse JSON
-app.use(express.json());
+app.use(express.json()); 
 
 // Connect to MongoDB and Initialize Collections
 async function initializeDatabase() {
