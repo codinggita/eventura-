@@ -112,7 +112,15 @@ import './BudgetEstimator.css';
             <>
               <div className="grid-2">
              
-             
+                <div>
+                  <label className="input-label">City</label>
+                  <input
+                    type="text"
+                    className="input-field"
+                    value={details.city}
+                    onChange={(e) => setDetails({ ...details, city: e.target.value })}
+                  />
+                </div>
               </div>
               <div className="checkbox-group">
                 <label className="checkbox-container">
@@ -138,7 +146,43 @@ import './BudgetEstimator.css';
           ))}
 
           {renderFormSection("Food & Beverages", <Users className="icon" />, (
-        
+            <>
+              <div className="grid-2">
+                <div>
+                  <label className="input-label">Meal Service</label>
+                  <select
+                    className="select-field"
+                    value={details.mealService}
+                    onChange={(e) => setDetails({ ...details, mealService: e.target.value })}
+                  >
+                    {MEAL_SERVICES.map(type => (
+                      <option key={type} value={type}>{type}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="checkbox-container">
+                  <label className="checkbox-container">
+                    <input
+                      type="checkbox"
+                      className="checkbox-input"
+                      checked={details.includesAlcohol}
+                      onChange={(e) => setDetails({ ...details, includesAlcohol: e.target.checked })}
+                    />
+                    <span className="checkbox-label">Include Alcohol Service</span>
+                  </label>
+                </div>
+              </div>
+              <div>
+                <label className="input-label">Dietary Restrictions</label>
+                <textarea
+                  className="textarea-field"
+                  rows={3}
+                  value={details.dietaryRestrictions}
+                  onChange={(e) => setDetails({ ...details, dietaryRestrictions: e.target.value })}
+                  placeholder="List any dietary requirements or restrictions"
+                />
+              </div>
+            </>
           ))}
 
           {renderFormSection("Additional Services", <Music className="icon" />, (
