@@ -5,6 +5,29 @@ import './BudgetEstimator.css';
 
 
 
+export default function BudgetEstimator() {
+  const [details, setDetails] = useState({
+    eventName: '',
+    eventType: EVENT_TYPES[0],
+    eventDate: '',
+    duration: 4,
+    guestCount: 50,
+    locationType: 'Indoor',
+    city: '',
+    needsDecoration: false,
+    needsParking: false,
+    mealService: 'Buffet',
+    includesAlcohol: false,
+    dietaryRestrictions: '',
+    needsMusic: false,
+    needsPhotography: false,
+    needsStaff: false,
+    specialFeatures: '',
+    needsPrinting: false,
+    additionalRequirements: '',
+    budgetTier: 'Standard'
+  });
+
   const [breakdown, setBreakdown] = useState([]);
 
   const calculateBudget = () => {
@@ -51,6 +74,15 @@ import './BudgetEstimator.css';
       });
     }
 
+    if (details.needsStaff) {
+      const staffCount = Math.ceil(details.guestCount / 25);
+      newBreakdown.push({
+        category: 'Staff',
+        amount: staffCount * 200 * multiplier,
+        description: `${staffCount} staff members for service`
+      });
+    }
+
     if (details.needsPrinting) {
       newBreakdown.push({
         category: 'Printing',
@@ -59,6 +91,12 @@ import './BudgetEstimator.css';
       });
     }
 
+    const subtotal = newBreakdown.reduce((sum, item) => sum + item.amount, 0);
+    newBreakdown.push({
+      category: 'Contingency',
+      amount: subtotal * 0.1,
+      description: '10% contingency for unexpected expenses'
+    });
 
     setBreakdown(newBreakdown);
   };
