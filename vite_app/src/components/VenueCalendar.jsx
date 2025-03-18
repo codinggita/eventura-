@@ -108,7 +108,54 @@ export default function VenueCalendar() {
 
     return (
       <>
-      
+        {emptyDays.map((_, index) => (
+          <div key={`empty-${index}`} className="day-cell" style={{ backgroundColor: '#f9fafb' }} />
+        ))}
+        
+        {days.map((day) => {
+          const booking = getBookingStatus(day);
+          const isSelected = selectedDate && isSameDay(day, selectedDate);
+          const isHovered = hoveredDate && isSameDay(day, hoveredDate);
+          
+          return (
+            <button
+              key={day.toISOString()}
+              onClick={() => {
+                if (!booking || booking.status !== 'booked') {
+                  setSelectedDate(day);
+                }
+              }}
+              onMouseEnter={() => setHoveredDate(day)}
+              onMouseLeave={() => setHoveredDate(null)}
+              disabled={booking?.status === 'booked'}
+              className={`${getStatusStyles(day)} 
+                ${isSelected ? 'selected' : ''} 
+                ${!isSameMonth(day, currentDate) ? 'not-current-month' : ''} 
+                ${isToday(day) ? 'today' : ''} 
+                ${isHovered ? 'hovered' : ''}`}
+              aria-label={`${format(day, 'MMMM d, yyyy')} - ${booking?.status || 'available'}`}
+              role="gridcell"
+              tabIndex={0}
+            >
+              <div className="day-content">
+                <span className="day-number">{format(day, 'd')}</span>
+                {booking && renderStatusBadge(booking.status)}
+              </div>
+              {booking && (
+                <div className="booking-details">
+                  <div className="booking-info">
+                    {booking.customer_name && (
+                      <span className="customer-name">{booking.customer_name}</span>
+                    )}
+                    {booking.notes && (
+                      <span className="booking-notes">{booking.notes}</span>
+                    )}
+                  </div>
+                </div>
+              )}
+            </button>
+          );
+        })}
       </>
     );
   };
