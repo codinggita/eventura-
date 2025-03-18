@@ -160,8 +160,43 @@ export default function VenueCalendar() {
     );
   };
 
+  const renderLegend = () => (
+    <div className="legend-container">
+      <div className="legend-item">
+        <div className="legend-dot available"></div>
+        <span className="legend-text">
+          Available
+          <Info className="info-icon" />
+        </span>
+      </div>
+      <div className="legend-item">
+        <div className="legend-dot pending"></div>
+        <span className="legend-text">
+          Pending
+          <Info className="info-icon" />
+        </span>
+      </div>
+      <div className="legend-item">
+        <div className="legend-dot booked"></div>
+        <span className="legend-text">
+          Booked
+          <Info className="info-icon" />
+        </span>
+      </div>
+    </div>
+  );
 
-
+  if (error) {
+    return (
+      <div className="error-container">
+        <p className="error-title">Error loading calendar</p>
+        <p className="error-message">{error}</p>
+        <button onClick={fetchBookings} className="retry-button">
+          Try again
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="venue-calendar-container">
