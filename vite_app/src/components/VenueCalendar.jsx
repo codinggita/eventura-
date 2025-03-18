@@ -165,7 +165,31 @@ export default function VenueCalendar() {
 
   return (
     <div className="venue-calendar-container">
-     
+      <div className="header-container">
+        <div className="title-container">
+          <Calendar className="calendar-icon" />
+          <h2 className="calendar-title">Venue Availability</h2>
+        </div>
+        
+        <div className="navigation-container">
+          <button
+            onClick={() => setCurrentDate(subMonths(currentDate, 1))}
+            className="nav-button"
+            aria-label="Previous month"
+          >
+            <ChevronLeft className="nav-icon" />
+          </button>
+          <h3 className="current-month">{format(currentDate, 'MMMM yyyy')}</h3>
+          <button
+            onClick={() => setCurrentDate(addMonths(currentDate, 1))}
+            className="nav-button"
+            aria-label="Next month"
+          >
+            <ChevronRight className="nav-icon" />
+          </button>
+        </div>
+      </div>
+
       {renderLegend()}
 
       {loading ? (
