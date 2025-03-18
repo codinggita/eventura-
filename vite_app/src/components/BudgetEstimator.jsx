@@ -4,6 +4,16 @@ import './BudgetEstimator.css';
 
 
 
+const MEAL_SERVICES = ['Buffet', 'Plated', 'Cocktail'];
+const LOCATION_TYPES = ['Indoor', 'Outdoor', 'Both'];
+const BUDGET_TIERS = ['Economy', 'Standard', 'Premium', 'Luxury'];
+
+const TIER_MULTIPLIERS = {
+  Economy: 0.7,
+  Standard: 1,
+  Premium: 1.5,
+  Luxury: 2.5
+};
 
 export default function BudgetEstimator() {
   const [details, setDetails] = useState({
