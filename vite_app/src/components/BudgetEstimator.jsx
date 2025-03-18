@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Calculator, Calendar, Users, MapPin, Music, Camera, UserCheck, Printer } from 'lucide-react';
 import './BudgetEstimator.css';
-
-
+import Navbar from '../navbar';
+const EVENT_TYPES = [
+  'Wedding',
+  'Corporate Event',
+  'Birthday Party',
+  'Anniversary',
+  'Conference',
+  'Social Gathering',
+  'Other'
+];
 
 const MEAL_SERVICES = ['Buffet', 'Plated', 'Cocktail'];
 const LOCATION_TYPES = ['Indoor', 'Outdoor', 'Both'];
@@ -135,7 +143,6 @@ export default function BudgetEstimator() {
   return (
     
     <div className="budget-estimator-container">
-      
       <div className="budget-grid">
         <div className="form-column">
           {renderFormSection("Basic Information", <Calculator className="icon" />, (
@@ -150,16 +157,71 @@ export default function BudgetEstimator() {
                 />
               </div>
 
-           
+              <div className="grid-2">
+                <div>
+                  <label className="input-label">Event Type</label>
+                  <select
+                    className="select-field"
+                    value={details.eventType}
+                    onChange={(e) => setDetails({ ...details, eventType: e.target.value })}
+                  >
+                    {EVENT_TYPES.map(type => (
+                      <option key={type} value={type}>{type}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="input-label">Event Date</label>
+                  <input
+                    type="date"
+                    className="input-field"
+                    value={details.eventDate}
+                    onChange={(e) => setDetails({ ...details, eventDate: e.target.value })}
+                  />
+                </div>
+              </div>
 
-            
+              <div className="grid-2">
+                <div>
+                  <label className="input-label">Duration (hours)</label>
+                  <input
+                    type="number"
+                    min="1"
+                    max="24"
+                    className="input-field"
+                    value={details.duration}
+                    onChange={(e) => handleNumberInput(e, 'duration')}
+                  />
+                </div>
+                <div>
+                  <label className="input-label">Number of Guests</label>
+                  <input
+                    type="number"
+                    min="1"
+                    className="input-field"
+                    value={details.guestCount}
+                    onChange={(e) => handleNumberInput(e, 'guestCount')}
+                  />
+                </div>
+              </div>
             </>
           ))}
 
           {renderFormSection("Venue & Location", <MapPin className="icon" />, (
             <>
               <div className="grid-2">
-             
+                <div>
+                  <label className="input-label">Location Type</label>
+                  <select
+                    className="select-field"
+                    value={details.locationType}
+                    onChange={(e) => setDetails({ ...details, locationType: e.target.value })}
+                  >
+                    {LOCATION_TYPES.map(type => (
+                      <option key={type} value={type}>{type}</option>
+                    ))}
+                  </select>
+                </div>
                 <div>
                   <label className="input-label">City</label>
                   <input
@@ -308,6 +370,26 @@ export default function BudgetEstimator() {
           ))}
         </div>
 
+        <div className="budget-breakdown">
+          <h3 className="breakdown-title">Budget Breakdown</h3>
+          <div className="breakdown-list">
+            {breakdown.map((item) => (
+              <div key={item.category} className="breakdown-item">
+                <div className="breakdown-item-header">
+                  <span className="breakdown-category">{item.category}</span>
+                  <span className="breakdown-amount">${item.amount.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
+                </div>
+                <p className="breakdown-description">{item.description}</p>
+              </div>
+            ))}
+            <div className="total-container">
+              <div className="total-header">
+                <span>Total Estimated Cost</span>
+                <span className="total-amount">${total.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
