@@ -1,0 +1,319 @@
+/* VenueCalendar.css */
+
+.venue-calendar-container {
+    background: rgba(30, 41, 59, 0.6);
+    border-radius: 1rem;
+    padding: clamp(1rem, 3vw, 2rem);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(0, 221, 235, 0.1);
+  }
+  
+  .header-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    gap: 1rem;
+  }
+  
+  .title-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .calendar-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: #00ddeb;
+  }
+  
+  .calendar-title {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    background: linear-gradient(90deg, #00ddeb, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .navigation-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .nav-button {
+    padding: 0.5rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .nav-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(0, 221, 235, 0.2);
+  }
+  
+  .nav-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #ffffff;
+  }
+  
+  .current-month {
+    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    min-width: 12rem;
+  }
+  
+  .legend-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 0.75rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .legend-dot {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+  }
+  
+  .legend-dot.available { background: linear-gradient(45deg, #16a34a, #22c55e); }
+  .legend-dot.pending { background: linear-gradient(45deg, #d97706, #f59e0b); }
+  .legend-dot.booked { background: linear-gradient(45deg, #dc2626, #ef4444); }
+  
+  .legend-text {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  
+  .info-icon {
+    width: 1rem;
+    height: 1rem;
+    color: rgba(255, 255, 255, 0.5);
+    transition: color 0.3s ease;
+  }
+  
+  .legend-item:hover .info-icon {
+    color: #00ddeb;
+  }
+  
+  .loading-container {
+    min-height: 20rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .spinner {
+    width: 2rem;
+    height: 2rem;
+    color: #00ddeb;
+    animation: spin 1s linear infinite;
+  }
+  
+  .error-container {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    color: #ef4444;
+    text-align: center;
+  }
+  
+  .error-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+  }
+  
+  .error-message {
+    font-size: 0.875rem;
+    margin: 0.5rem 0;
+  }
+  
+  .retry-button {
+    margin-top: 0.75rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    color: #ffffff;
+    background: linear-gradient(45deg, #ef4444, #dc2626);
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .retry-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+  }
+  
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+  
+  .day-header {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.75rem;
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+  }
+  
+  .day-cell {
+    min-height: 8rem;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 0.5rem;
+    position: relative;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  .day-cell.available:hover {
+    background: rgba(22, 163, 74, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(22, 163, 74, 0.2);
+    cursor: pointer;
+  }
+  
+  .day-cell.booked {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    cursor: not-allowed;
+  }
+  
+  .day-cell.pending {
+    background: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+  }
+  
+  .day-cell.pending:hover {
+    background: rgba(245, 158, 11, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+  }
+  
+  .day-cell.selected {
+    border: 2px solid #00ddeb;
+    box-shadow: 0 0 20px rgba(0, 221, 235, 0.3);
+  }
+  
+  .day-cell.not-current-month {
+    opacity: 0.5;
+  }
+  
+  .day-cell.today {
+    font-weight: 700;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+  }
+  
+  .day-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .day-number {
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .status-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  
+  .status-badge.booked { background: rgba(239, 68, 68, 0.3); color: #ef4444; }
+  .status-badge.pending { background: rgba(245, 158, 11, 0.3); color: #f59e0b; }
+  .status-badge.available { background: rgba(22, 163, 74, 0.3); color: #22c55e; }
+  
+  .status-icon {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+  
+  .booking-details {
+    position: absolute;
+    bottom: 0.5rem;
+    left: 0.5rem;
+    right: 0.5rem;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .booking-info {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .customer-name {
+    display: block;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .booking-notes {
+    display: block;
+    opacity: 0.8;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 640px) {
+    .day-cell {
+      min-height: 6rem;
+    }
+    
+    .calendar-title {
+      font-size: 1.25rem;
+    }
+    
+    .current-month {
+      min-width: auto;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .header-container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .navigation-container {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }

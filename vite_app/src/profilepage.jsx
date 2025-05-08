@@ -6,7 +6,6 @@ import { FaHeart, FaUser, FaCalendarAlt, FaRegCalendarCheck, FaCog } from "react
 import Footer from './footer';
 import Navbar from "./navbar";
 
-
 const ProfilePage = () => {
   const navigate = useNavigate();
   const { user, isAuthenticated } = useAuth0(); 
@@ -17,14 +16,11 @@ const ProfilePage = () => {
   const [profileImage, setProfileImage] = useState(""); 
   const [isEditing, setIsEditing] = useState(false); 
 
-
   useEffect(() => {
     if (isAuthenticated && user) {
       setFullName(user.name || "User");
       setEmail(user.email || "");
-
       setProfileImage(user.picture || "https://via.placeholder.com/150");
-
   
       const savedPhone = localStorage.getItem(`phone_${user.email}`);
       const savedLocation = localStorage.getItem(`location_${user.email}`);
@@ -33,7 +29,6 @@ const ProfilePage = () => {
       if (savedLocation) setLocation(savedLocation);
     }
   }, [isAuthenticated, user]);
-
 
   const handleSave = () => {
     if (isAuthenticated) {
@@ -58,10 +53,11 @@ const ProfilePage = () => {
             {isEditing ? "Cancel" : "Edit Profile"}
           </button>
           <ul className="sidebar-menu">
+            <li onClick={() => navigate('/budget-calculator')}><FaHeart /> EBE & VAC</li>
             <li><FaUser /> Personal Details</li>
-            <li><FaCalendarAlt onClick={()=>navigate(`/booking`)} /> My Bookings</li>
-            <li><FaHeart onClick={()=>navigate(`/savedVenues`)}/> Saved Venues</li>
-            <li><FaRegCalendarCheck onClick={()=>navigate(`/upcomingevents`)} /> Upcoming Events</li>
+            <li onClick={() => navigate('/booking')}><FaCalendarAlt /> My Bookings</li>
+            <li onClick={() => navigate('/savedVenues')}><FaHeart /> Saved Venues</li>
+            <li onClick={() => navigate('/upcomingevents')}><FaRegCalendarCheck /> Upcoming Events</li>
             <li><FaCog /> Settings</li>
           </ul>
         </div>

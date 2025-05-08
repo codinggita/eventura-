@@ -4,14 +4,14 @@ import { FiUser, FiMenu, FiX, FiMessageSquare } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
-import ChatBox from './ChatBox';  // 🟢 Import ChatBox
+import ChatBox from './ChatBox';
 import './navbar.css';
 
 const Navbar = () => {
   const { logout, isAuthenticated } = useAuth0();
   const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [showChat, setShowChat] = useState(false);  // 🟢 State for Chat
+  const [showChat, setShowChat] = useState(false);
 
   const handleProfile = () => {
     navigate('/profile');
@@ -41,6 +41,7 @@ const Navbar = () => {
           <Link to="/events">EVENTS</Link>
           <Link to="/projects">PROJECTS</Link>
           <Link to="/blogs">BLOGS</Link>
+          <Link to="/budget-calculator">BUDGET CALCULATOR</Link> {/* Added here */}
           <Link to="/contactus">CONTACT US</Link>
           <Link to="/aboutus">ABOUT US</Link>
         </nav>
@@ -73,6 +74,7 @@ const Navbar = () => {
             <Link to="/events" onClick={toggleDrawer}>EVENTS</Link>
             <Link to="/projects" onClick={toggleDrawer}>PROJECTS</Link>
             <Link to="/blogs" onClick={toggleDrawer}>BLOGS</Link>
+            <Link to="/budget-calculator" onClick={toggleDrawer}>BUDGET CALCULATOR</Link> {/* Added here */}
             <Link to="/contactus" onClick={toggleDrawer}>CONTACT US</Link>
             <Link to="/aboutus" onClick={toggleDrawer}>ABOUT US</Link>
           </nav>
@@ -101,7 +103,7 @@ const Navbar = () => {
         </div>
       </header>
 
-      {/* 🟢 Live Chat Box */}
+      {/* Live Chat Box */}
       {showChat && <ChatBox />}
     </div>
   );
